@@ -149,6 +149,3 @@ def logoutuser(request):
     if request.method == 'POST':
         logout(request)
         return redirect('home')
-
-
-test = 0
