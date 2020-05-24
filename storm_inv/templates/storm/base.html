@@ -1,0 +1,126 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Storm Cafe</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style>
+.button1 {
+  background-color: #f44336;
+  border: none;
+  color: white;
+  padding: 12px 28px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 100px;
+}
+
+</style>
+
+    <style>
+/* Style The Dropdown Button */
+.dropbtn {
+  background-color: #0093FF;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 15px;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #476EFF;
+}
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-info text-white">
+  <h1><b>Storm Cafe</b></h1>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+
+              <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                    <a class="nav-link text-white" href="{%url 'home' %}"><h5>Home</h5></a>
+                    <a class="nav-link text-white" href="{%url 'viewinventory' %}"><h5>Inventory</h5></a>
+                  {% if user.is_authenticated %}
+                <div class="dropdown">
+                    <button class="dropbtn">Admin Control</button>
+                    <div class="dropdown-content">
+                        <a class="nav-link text-black dropdown-item" href="{%url 'addperson' %}"><h7>Add Person</h7></a>
+                        <a class="nav-link text-black dropdown-item" href="{%url 'addinventory' %}"><h7>Add Inventory</h7></a>
+                        <a class="nav-link text-black dropdown-item" href="{%url 'viewtoeditperson' %}"><h7>Edit Person</h7></a>
+                        <a class="nav-link text-black dropdown-item" href="{%url 'viewtoeditinventory' %}"><h7>Edit Inventory</h7></a>
+                    </div>
+                </div>
+              </div>
+    <h5>Hello {{user.username}}</h5>
+    <form action="{% url 'logoutuser' %}" method="POST">
+            {% csrf_token %}
+            <button class="dropbtn" type="submit">Logout</button>
+    </form>
+    {%else%}
+    <a class="nav-link text-white" href="{% url 'loginuser' %}"><button class="dropbtn">Admin Login</button></a>
+    {%endif%}
+</nav>
+
+<br>
+
+
+
+
+{% block content %}
+{% endblock %}

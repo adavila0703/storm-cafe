@@ -1,0 +1,47 @@
+{%extends 'storm/base.html' %}
+{% block content %}
+
+<div align="center">
+    <span style="padding-left:45px">
+        <h1><b>{{person.name}} {{person.lname}}</b></h1>
+    <br>
+    <h1><span class="badge badge-secondary badge-success">${{person.money}}</span></h1>
+        <br>
+
+{% for row in rows %}
+    <div class="row">
+        {% for s in snack %}
+            <div class="col-md-3">
+                    <form action="{% url 'subsnack' person.id s.id%}" method='POST'>
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#abc"><h6><b>{{s.name}} ${{s.price}}</b></h6></button>
+                    </form>
+            </div>
+        {% endfor %}
+    </div>
+{% endfor %}
+        <br>
+    </span>
+</div>
+
+<div align="center">
+    <br><br>
+    <h3>Transaction History</h3>
+    <br>
+    <table class="table">
+      </thead>
+        {%for m in mov%}
+      <tbody>
+        <tr>
+            <td><b>{{m}}</b></td>
+        </tr>
+      </tbody>
+        {%endfor%}
+    </table>
+</div>
+
+
+
+
+
+{% endblock %}

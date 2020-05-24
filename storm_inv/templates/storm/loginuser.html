@@ -1,0 +1,12 @@
+{% extends 'storm/base.html' %}
+{% block content %}
+<div align="center">
+<h1>Admin Login</h1>
+<h2>{{error}}</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="dropbtn" type="submit">Login</button><br>
+</form>
+</div>
+{% endblock %}

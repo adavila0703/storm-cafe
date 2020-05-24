@@ -1,0 +1,29 @@
+{%extends 'storm/base.html' %}
+
+{% block content %}
+<div align="center">
+<h1>Student</h1>
+<br><br>
+<div class="container mt-3">
+  <input class="form-control" id="myInput" type="text" placeholder="Search Student">
+  <br>
+  <ul class="list-group" id="myList">
+      {%for p in person%}
+        <li class="list-group-item"><a href="{%url 'viewperson' p.id%}"><b><h3>{{p}}</h3></b></a></li>
+        <br><br>
+      {%endfor%}
+  </ul>
+</div>
+</div>
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myList li").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,27 @@
+{%extends 'storm/base.html' %}
+
+{% block content %}
+<div align="center">
+<h1>View Snacks</h1>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"><h2>Snack</h2></th>
+      <th scope="col"><h2>Amount</h2></th>
+      <th scope="col"><h2>Price</h2></th>
+    </tr>
+  </thead>
+    {%for s in snack%}
+  <tbody>
+    <tr>
+      <td>{{s}}</td>
+      <td>{{s.amount}}</td>
+      <td>${{s.price}}</td>
+    </tr>
+  </tbody>
+    {%endfor%}
+</table>
+
+
+{% endblock %}
