@@ -12,7 +12,7 @@
         <button type="submit" class="btn btn-info">Save</button>
     </form>
 
-    <form method="POST" action="{%url 'deletesnack' snack.id %}">
+    <form method="POST" action="{%url 'delete_inventory' snack.id %}">
         {% csrf_token %}
         <button type="submit" class="btn btn-info" >Delete</button>
     </form>

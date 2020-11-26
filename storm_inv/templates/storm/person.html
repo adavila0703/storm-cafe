@@ -12,7 +12,7 @@
     <div class="row">
         {% for s in snack %}
             <div class="col-md-3">
-                    <form action="{% url 'subsnack' person.id s.id%}" method='POST'>
+                    <form action="{% url 'subtract_inventory' person.id s.id%}" method='POST'>
                         {% csrf_token %}
                         <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#abc"><h6><b>{{s.name}} ${{s.price}}</b></h6></button>
                     </form>

@@ -13,9 +13,9 @@ def home(request):
     return render(request, 'storm/home.html', {'person': person})
 
 
-def addperson(request):
+def add_person(request):
     if request.method == 'GET':
-        return render(request, 'storm/addperson.html', {'form': PersonForm()})
+        return render(request, 'storm/add_person.html', {'form': PersonForm()})
     else:
         try:
             form = PersonForm(request.POST)
@@ -24,33 +24,65 @@ def addperson(request):
             newperson.save()
             return redirect('home')
         except ValueError:
-            return render(request, 'storm/addperson.html', {'form': PersonForm(), 'error': 'Bad data passed in'})
+            return render(request, 'storm/add_person.html', {'form': PersonForm(), 'error': 'Bad data passed in'})
 
 
-def viewtoeditinventory(request):
-    snack = Snack.objects.all()
-    return render(request, 'storm/viewtoeditinventory.html', {'snack': snack})
-
-
-def viewperson(request, person_pk):
+def person_home(request, person_pk):
     person = get_object_or_404(Person, pk=person_pk)
     snack = Snack.objects.all()
     rows = 'a'
-    if person.movement != None:
+    if person.movement is not None:
         mov = person.movement.split(',')
-        return render(request, 'storm/viewperson.html', {'person': person, 'mov': mov, 'snack': snack, 'rows': rows})
+        return render(request, 'storm/person.html', {'person': person, 'mov': mov, 'snack': snack, 'rows': rows})
     else:
-        return render(request, 'storm/viewperson.html', {'person': person, 'snack': snack, 'rows': rows})
+        return render(request, 'storm/person.html', {'person': person, 'snack': snack, 'rows': rows})
 
 
-def subsnack(request, person_pk, snack_pk):
+def person_list(request):
+    person = Person.objects.all()
+    return render(request, 'storm/person_list.html', {'person': person})
+
+
+def edit_person(request, person_pk):
+    person = get_object_or_404(Person, pk=person_pk)
+    rows = 'a'
+    if request.method == 'GET':
+        form = PersonForm(instance=person)
+        return render(request, 'storm/edit_person.html', {'person': person, 'form': form, 'rows': rows})
+    else:
+        try:
+            form = PersonForm(request.POST, instance=person)
+            form.save()
+            return redirect('person_list')
+        except ValueError():
+            return render(request, 'storm/edit_person.html', {'person': person, 'form': form, 'error': 'Bad info'})
+
+
+def delete_person(request, person_pk):
+    person = get_object_or_404(Person, pk=person_pk)
+    if request.method == 'POST':
+        person.delete()
+        return redirect('person_list')
+
+
+def inventory_home(request):
+    snack = Snack.objects.all()
+    return render(request, 'storm/inventory.html', {'snack': snack})
+
+
+def inventory_list(request):
+    snack = Snack.objects.all()
+    return render(request, 'storm/edit_inventory.html', {'snack': snack})
+
+
+def subtract_inventory(request, person_pk, snack_pk):
     person = get_object_or_404(Person, pk=person_pk)
     snack = get_object_or_404(Snack, pk=snack_pk)
     time = datetime.date.today()
     if request.method == "POST":
         person.money -= snack.price
         snack.amount -= 1
-        if person.movement != None:
+        if person.movement is not None:
             toli = person.movement.split(',')
             toli.insert(0,
                         f' Date: {time}  ----  Item: {snack.name} --- Price: ${snack.price}  ----  Account Balance: {person.money}, ')
@@ -65,23 +97,9 @@ def subsnack(request, person_pk, snack_pk):
             return redirect('home')
 
 
-def editsnack(request, snack_pk):
-    snack = get_object_or_404(Snack, pk=snack_pk)
+def add_inventory(request):
     if request.method == 'GET':
-        form = SnackForm(instance=snack)
-        return render(request, 'storm/editsnack.html', {'snack': snack, 'form': form})
-    else:
-        try:
-            form = SnackForm(request.POST, instance=snack)
-            form.save()
-            return redirect('viewtoeditinventory')
-        except ValueError():
-            return render(request, 'storm/editsnack.html', {'snack': snack, 'form': form, 'error': 'Bad info'})
-
-
-def addinventory(request):
-    if request.method == 'GET':
-        return render(request, 'storm/addinventory.html', {'form': SnackForm()})
+        return render(request, 'storm/add_inventory.html', {'form': SnackForm()})
     else:
         try:
             form = SnackForm(request.POST)
@@ -90,46 +108,28 @@ def addinventory(request):
             newperson.save()
             return redirect('home')
         except ValueError:
-            return render(request, 'storm/addinventory.html', {'form': SnackForm(), 'error': 'Bad data passed in'})
+            return render(request, 'storm/add_inventory.html', {'form': SnackForm(), 'error': 'Bad data passed in'})
 
 
-def viewtoeditperson(request):
-    person = Person.objects.all()
-    return render(request, 'storm/viewtoeditperson.html', {'person': person})
-
-
-def editperson(request, person_pk):
-    person = get_object_or_404(Person, pk=person_pk)
-    rows = 'a'
-    if request.method == 'GET':
-        form = PersonForm(instance=person)
-        return render(request, 'storm/editperson.html', {'person': person, 'form': form, 'rows': rows})
-    else:
-        try:
-            form = PersonForm(request.POST, instance=person)
-            form.save()
-            return redirect('viewtoeditperson')
-        except ValueError():
-            return render(request, 'storm/editperson.html', {'person': person, 'form': form, 'error': 'Bad info'})
-
-
-def viewinventory(request):
-    snack = Snack.objects.all()
-    return render(request, 'storm/viewinventory.html', {'snack': snack})
-
-
-def deletesnack(request, snack_pk):
+def delete_inventory(request, snack_pk):
     snack = get_object_or_404(Snack, pk=snack_pk)
     if request.method == 'POST':
         snack.delete()
-        return redirect('viewtoeditinventory')
+        return redirect('inventory_list')
 
 
-def deleteperson(request, person_pk):
-    person = get_object_or_404(Person, pk=person_pk)
-    if request.method == 'POST':
-        person.delete()
-        return redirect('viewtoeditperson')
+def edit_inventory(request, snack_pk):
+    snack = get_object_or_404(Snack, pk=snack_pk)
+    if request.method == 'GET':
+        form = SnackForm(instance=snack)
+        return render(request, 'storm/edit_snack.html', {'snack': snack, 'form': form})
+    else:
+        try:
+            form = SnackForm(request.POST, instance=snack)
+            form.save()
+            return redirect('inventory_list')
+        except ValueError():
+            return render(request, 'storm/edit_snack.html', {'snack': snack, 'form': form, 'error': 'Bad info'})
 
 
 def loginuser(request):

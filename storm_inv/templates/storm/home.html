@@ -9,7 +9,7 @@
   <br>
   <ul class="list-group" id="myList">
       {%for p in person%}
-        <li class="list-group-item"><a href="{%url 'viewperson' p.id%}"><b><h3>{{p}}</h3></b></a></li>
+        <li class="list-group-item"><a href="{%url 'person_home' p.id%}"><b><h3>{{p}}</h3></b></a></li>
         <br><br>
       {%endfor%}
   </ul>

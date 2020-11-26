@@ -95,15 +95,15 @@
 
               <div class="collapse navbar-collapse" id="collapsibleNavbar">
                     <a class="nav-link text-white" href="{%url 'home' %}"><h5>Home</h5></a>
-                    <a class="nav-link text-white" href="{%url 'viewinventory' %}"><h5>Inventory</h5></a>
+                    <a class="nav-link text-white" href="{%url 'inventory_home' %}"><h5>Inventory</h5></a>
                   {% if user.is_authenticated %}
                 <div class="dropdown">
                     <button class="dropbtn">Admin Control</button>
                     <div class="dropdown-content">
-                        <a class="nav-link text-black dropdown-item" href="{%url 'addperson' %}"><h7>Add Person</h7></a>
-                        <a class="nav-link text-black dropdown-item" href="{%url 'addinventory' %}"><h7>Add Inventory</h7></a>
-                        <a class="nav-link text-black dropdown-item" href="{%url 'viewtoeditperson' %}"><h7>Edit Person</h7></a>
-                        <a class="nav-link text-black dropdown-item" href="{%url 'viewtoeditinventory' %}"><h7>Edit Inventory</h7></a>
+                        <a class="nav-link text-black dropdown-item" href="{%url 'add_person' %}"><h7>Add Person</h7></a>
+                        <a class="nav-link text-black dropdown-item" href="{%url 'add_inventory' %}"><h7>Add Inventory</h7></a>
+                        <a class="nav-link text-black dropdown-item" href="{%url 'person_list' %}"><h7>Edit Person</h7></a>
+                        <a class="nav-link text-black dropdown-item" href="{%url 'inventory_list' %}"><h7>Edit Inventory</h7></a>
                     </div>
                 </div>
               </div>

@@ -21,28 +21,27 @@ from storm_inv import views
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
     path('', views.home, name='home'),
-    path('viewinventory/', views.viewinventory, name='viewinventory'),
-    path('viewperson/<int:person_pk>', views.viewperson, name='viewperson'),
+    path('inventory_home/', views.inventory_home, name='inventory_home'),
+    path('person_home/<int:person_pk>', views.person_home, name='person_home'),
     path('loginuser/', views.loginuser, name='loginuser'),
     path('logoutuser/', views.logoutuser, name='logoutuser'),
 
-
     #add
-    path('addperson/', views.addperson, name='addperson'),
-    path('addinventory/', views.addinventory, name='addinventory'),
+    path('add_person/', views.add_person, name='add_person'),
+    path('add_inventory/', views.add_inventory, name='add_inventory'),
 
     #delete
-    path('storm/<int:snack_pk>/deletesnack', views.deletesnack, name='deletesnack'),
-    path('storm/<int:person_pk>/deleteperson', views.deleteperson, name='deleteperson'),
+    path('storm/<int:snack_pk>/delete_inventory', views.delete_inventory, name='delete_inventory'),
+    path('storm/<int:person_pk>/delete_person', views.delete_person, name='delete_person'),
 
     #edits
-    path('editsnack/<int:snack_pk>', views.editsnack, name='editsnack'),
-    path('viewtoeditperson/', views.viewtoeditperson, name='viewtoeditperson'),
-    path('editperson/<int:person_pk>', views.editperson, name='editperson'),
-    path('viewtoeditinventory/', views.viewtoeditinventory, name='viewtoeditinventory'),
+    path('edit_inventory/<int:snack_pk>', views.edit_inventory, name='edit_inventory'),
+    path('person_list/', views.person_list, name='person_list'),
+    path('edit_person/<int:person_pk>', views.edit_person, name='edit_person'),
+    path('inventory_list/', views.inventory_list, name='inventory_list'),
 
     #Funcions
-    path('subsnack/<int:person_pk>/<int:snack_pk>', views.subsnack, name='subsnack'),
+    path('subtract_inventory/<int:person_pk>/<int:snack_pk>', views.subtract_inventory, name='subtract_inventory'),
 
 
     #Search

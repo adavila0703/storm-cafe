@@ -1,0 +1,15 @@
+# .coveragerc to control coverage.py
+[run]
+branch = True
+omit =
+        *Test*
+        */venv/*
+        */__init__.py
+        */storm_inv/migrations*
+
+
+[report]
+omit =
+        *Test*
+        */usr/local/lib*
+        */__init__.py
