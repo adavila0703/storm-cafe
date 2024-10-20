@@ -1,5 +1,5 @@
 asgiref==3.3.1
 coverage==5.3
-Django==3.1.14
+Django==4.2.16
 pytz==2020.4
 sqlparse==0.4.4
